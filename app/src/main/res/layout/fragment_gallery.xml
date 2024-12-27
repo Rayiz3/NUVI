@@ -12,9 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:paddingBottom="28dp"
+        android:paddingBottom="@dimen/margin_title_bottom"
         android:textAlignment="center"
-        android:textSize="28sp"
+        android:textSize="@dimen/size_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,6 +26,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:layout_marginLeft="@dimen/margin_imageGrid"
+        android:layout_marginRight="@dimen/margin_imageGrid"
         app:layout_constraintHeight_percent="0.9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +39,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
