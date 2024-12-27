@@ -8,6 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentGalleryBinding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
 
 class GalleryFragment : Fragment() {
 
@@ -29,9 +32,44 @@ class GalleryFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textGallery
+
+        // Initialize RecyclerView
+        val recyclerView: RecyclerView = binding.recyclerView
+        val dataSet = arrayOf(
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5
+        )
+        //val dataSet = arrayOf("Image 1", "Image 2", "Image 3", "Image 4", "Image 5") // Example data
+
+        // Set the main text
+        // viewLifecycleOwner : Ensures that observation stops when the Fragment's view is destroyed.
+        // it : latest value of LiveData.text
         galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            textView.text = getString(R.string.main_gallery, dataSet.size)
         }
+
+        // Set the RecyclerView's layout manager and adapter
+        recyclerView.layoutManager = GridLayoutManager(context, 3) // 3 columns
+        recyclerView.adapter = GalleryAdapter(dataSet)
+
         return root
     }
 
