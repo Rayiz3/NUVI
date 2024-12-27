@@ -32,6 +32,7 @@ class GalleryFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textGallery
+        val textViewMain: TextView = binding.textMain
 
         // Initialize RecyclerView
         val recyclerView: RecyclerView = binding.recyclerView
@@ -62,8 +63,9 @@ class GalleryFragment : Fragment() {
         // Set the main text
         // viewLifecycleOwner : Ensures that observation stops when the Fragment's view is destroyed.
         // it : latest value of LiveData.text
-        galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = getString(R.string.main_gallery, dataSet.size)
+        galleryViewModel.text_main.observe(viewLifecycleOwner) {
+            textView.text = it
+            textViewMain.text = getString(R.string.main_gallery, dataSet.size)
         }
 
         // Set the RecyclerView's layout manager and adapter
