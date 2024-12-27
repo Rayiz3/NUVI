@@ -19,7 +19,8 @@
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -28,6 +29,7 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/margin_imageGrid"
         android:layout_marginRight="@dimen/margin_imageGrid"
+        android:paddingBottom="@dimen/size_bottomNav_height"
         app:layout_constraintHeight_percent="0.9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +41,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
+            android:paddingBottom="@dimen/margin_imageGrid_bottom"
+            android:scrollbars="none"
             android:scrollbarStyle="outsideOverlay"/>
     </LinearLayout>
 
