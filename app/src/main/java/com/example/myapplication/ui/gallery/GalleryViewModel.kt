@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class GalleryViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "N개의 사진"
+        value = "${1}개의 사진"
     }
     val text: LiveData<String> = _text
 }

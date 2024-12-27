@@ -40,13 +40,30 @@ class GalleryFragment : Fragment() {
             R.drawable.img2,
             R.drawable.img3,
             R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
             R.drawable.img5
         )
         //val dataSet = arrayOf("Image 1", "Image 2", "Image 3", "Image 4", "Image 5") // Example data
 
         // Set the main text
+        // viewLifecycleOwner : Ensures that observation stops when the Fragment's view is destroyed.
+        // it : latest value of LiveData.text
         galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            textView.text = getString(R.string.main_gallery, dataSet.size)
         }
 
         // Set the RecyclerView's layout manager and adapter

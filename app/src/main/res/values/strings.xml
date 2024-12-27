@@ -4,4 +4,5 @@
     <string name="title_calender">Calendar</string>
     <string name="title_gallery">Gallery</string>
     <string name="element_text">grid test</string>
+    <string name="main_gallery">%d개의 사진</string>
 </resources>
