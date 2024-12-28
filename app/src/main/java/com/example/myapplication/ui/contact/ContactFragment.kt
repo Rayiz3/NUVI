@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentContactBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.IOException
 
 class ContactFragment : Fragment() {
+//    private var binding: FragmentContactBinding by lazy {
+//        FragmentContactBinding.inflate(layoutInflater)
+//    }
 
     private var _binding: FragmentContactBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,21 +27,54 @@ class ContactFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val contactViewModel =
-            ViewModelProvider(this).get(ContactViewModel::class.java)
-
         _binding = FragmentContactBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
+//        val contactViewModel =
+//            ViewModelProvider(this).get(ContactViewModel::class.java)
+//
+//        _binding = FragmentContactBinding.inflate(inflater, container, false)
+//        val root: View = binding.root
 
-        val textView: TextView = binding.textContact
-        contactViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val testdata = getJsonData("Contact.json")
+
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = ContactAdapter(testdata!!)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-        return root
+//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        val contactList = loadContacts()
+//        val adapter = ContactAdapter(contactList)
+//        binding.recyclerView.adapter = adapter
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    //        val textView: TextView = binding.textContact
+//        contactViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
+//        return root
+//    }
+    private fun getJsonData(fileName: String): List<Contact>? {
+        val assetManager = resources.assets
+        var result: Contact? = null
+        return try {
+            val inputStream = assetManager.open(fileName)
+            val reader = inputStream.bufferedReader()
+            val gson = Gson()
+            val listType = object : TypeToken<List<Contact>>() {}.type
+            gson.fromJson(reader, listType)
+        } catch (e:IOException) {
+            e.printStackTrace()
+            null
+        }
     }
+
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 }
