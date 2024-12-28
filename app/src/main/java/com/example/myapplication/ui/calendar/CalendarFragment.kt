@@ -12,9 +12,6 @@ import com.example.myapplication.databinding.FragmentCalendarBinding
 class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
