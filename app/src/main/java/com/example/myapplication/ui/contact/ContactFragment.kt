@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentContactBinding
 import com.example.myapplication.ui.calendar.CalendarViewModel
 import com.google.gson.Gson
@@ -34,11 +35,8 @@ class ContactFragment : Fragment() {
         val textTitleView: TextView = binding.contactTitle
         val textSubtitleView: TextView = binding.contactSubtitle
 
-        //contactViewModel.text.observe(viewLifecycleOwner) {
-        //    textView.text = it
-        //}
-        textTitleView.text = "Contact"
-        textSubtitleView.text = "길 위의 전화번호부"
+        textTitleView.text = getString(R.string.title_contact)
+        textSubtitleView.text = getString(R.string.subtitle_contact)
 
         return root
     }

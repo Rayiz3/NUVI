@@ -58,15 +58,15 @@ class GalleryFragment : Fragment() {
         )
         //val dataSet = arrayOf("Image 1", "Image 2", "Image 3", "Image 4", "Image 5") // Example data
 
+        textTitleView.text = getString(R.string.title_gallery)
+        textSubtitleView.text = getString(R.string.subtitle_gallery)
+
         // Set the main text
         // viewLifecycleOwner : Ensures that observation stops when the Fragment's view is destroyed.
         // it : latest value of LiveData.text
         galleryViewModel.text_main.observe(viewLifecycleOwner) {
             textViewMain.text = getString(R.string.main_gallery, dataSet.size)
         }
-
-        textTitleView.text = "Gallery"
-        textSubtitleView.text = "우리가 함께할 곳"
 
         // Set the RecyclerView's layout manager and adapter
         recyclerView.layoutManager = GridLayoutManager(context, 3) // 3 columns

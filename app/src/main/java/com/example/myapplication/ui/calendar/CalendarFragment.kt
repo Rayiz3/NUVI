@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCalendarBinding
 
 class CalendarFragment : Fragment() {
@@ -28,11 +29,8 @@ class CalendarFragment : Fragment() {
         val textTitleView: TextView = binding.calendarTitle
         val textSubtitleView: TextView = binding.calendarSubtitle
 
-        //calendarViewModel.text.observe(viewLifecycleOwner) {
-        //    textTitleView.text = it
-        //}
-        textTitleView.text = "Calendar"
-        textSubtitleView.text = "우리의 여정"
+        textTitleView.text = getString(R.string.title_calendar)
+        textSubtitleView.text = getString(R.string.subtitle_calendar)
         return root
     }
 
