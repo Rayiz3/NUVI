@@ -31,11 +31,14 @@ class ContactFragment : Fragment() {
         _binding = FragmentContactBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textContact
+        val textTitleView: TextView = binding.contactTitle
+        val textSubtitleView: TextView = binding.contactSubtitle
 
-        contactViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        //contactViewModel.text.observe(viewLifecycleOwner) {
+        //    textView.text = it
+        //}
+        textTitleView.text = "Contact"
+        textSubtitleView.text = "길 위의 전화번호부"
 
         return root
     }

@@ -25,10 +25,14 @@ class CalendarFragment : Fragment() {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textCalendar
-        calendarViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val textTitleView: TextView = binding.calendarTitle
+        val textSubtitleView: TextView = binding.calendarSubtitle
+
+        //calendarViewModel.text.observe(viewLifecycleOwner) {
+        //    textTitleView.text = it
+        //}
+        textTitleView.text = "Calendar"
+        textSubtitleView.text = "우리의 여정"
         return root
     }
 
