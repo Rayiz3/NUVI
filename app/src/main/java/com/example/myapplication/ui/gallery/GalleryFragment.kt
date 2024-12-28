@@ -34,6 +34,7 @@ class GalleryFragment : Fragment() {
 
         // Initialize RecyclerView
         val recyclerView: RecyclerView = binding.recyclerView
+        val spacing = resources.getDimensionPixelSize(R.dimen.margin_gallery_image)
         val dataSet = arrayOf(
             R.drawable.img1,
             R.drawable.img2,
@@ -69,8 +70,9 @@ class GalleryFragment : Fragment() {
         }
 
         // Set the RecyclerView's layout manager and adapter
-        recyclerView.layoutManager = GridLayoutManager(context, 3) // 3 columns
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.adapter = GalleryAdapter(dataSet)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(spanCount = 2, spacing = spacing))
 
         return root
     }
