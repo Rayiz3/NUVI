@@ -12,4 +12,5 @@
     <color name="main">#FF4690FF</color>
     <color name="main_bold">#FF1B66F6</color>
     <color name="sub">#FFE5E5E5</color>
+    <color name="subDark">#FFB9B9B9</color>
 </resources>

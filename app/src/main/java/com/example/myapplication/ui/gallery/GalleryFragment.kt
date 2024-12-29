@@ -42,7 +42,6 @@ class GalleryFragment : Fragment() {
             ImageItem(R.drawable.img3, "title3"),
             ImageItem(R.drawable.img4, "title4"),
             ImageItem(R.drawable.img5, "title5"),
-            ImageItem(R.drawable.placeholder_gallery_image, "title6"),
         )
         //val dataSet = arrayOf("Image 1", "Image 2", "Image 3", "Image 4", "Image 5") // Example data
 

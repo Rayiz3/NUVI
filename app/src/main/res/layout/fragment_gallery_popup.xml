@@ -34,30 +34,35 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
+        <EditText
             android:id="@+id/dialogTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_gallery_popup_title"
             android:textSize="@dimen/size_gallery_popup_title"
             android:textStyle="bold"
+            android:background="@null"
             android:textColor="@color/black"
             android:gravity="center"
             android:text="@string/placeholder_gallery_popup_title"
+            android:autofillHints="name"
             android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/dialogImageCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/dialogAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_gallery_popup_address"
             android:textSize="@dimen/size_gallery_popup_address"
+            android:background="@null"
+            android:textColor="@color/subDark"
             android:textStyle="normal"
             android:gravity="center"
             android:text="@string/placeholder_gallery_popup_address"
+            android:autofillHints="postalAddress"
             app:layout_constraintTop_toBottomOf="@id/dialogTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -69,12 +74,13 @@
             android:layout_marginTop="@dimen/margin_gallery_popup_description"
             android:layout_marginStart="@dimen/margin_gallery_popup_image"
             android:layout_marginEnd="@dimen/margin_gallery_popup_image"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/margin_gallery_popup_image"
             android:background="@null"
             android:textSize="@dimen/size_gallery_popup_description"
             android:textColor="@color/black"
             android:gravity="center"
             android:hint="@string/placeholder_gallery_popup_description"
+            android:autofillHints="name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dialogAddress"
