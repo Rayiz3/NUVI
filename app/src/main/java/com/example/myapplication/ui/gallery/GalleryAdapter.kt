@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.gallery
 
+import ImageItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
