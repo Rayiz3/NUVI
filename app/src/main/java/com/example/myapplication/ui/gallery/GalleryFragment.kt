@@ -11,6 +11,7 @@ import com.example.myapplication.databinding.FragmentGalleryBinding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+data class ImageItem(val imageResId: Int, val title: String)
 
 class GalleryFragment : Fragment() {
 
@@ -36,26 +37,12 @@ class GalleryFragment : Fragment() {
         val recyclerView: RecyclerView = binding.recyclerView
         val spacing = resources.getDimensionPixelSize(R.dimen.margin_gallery_image)
         val dataSet = arrayOf(
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img5,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img5,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img5,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img5
+            ImageItem(R.drawable.img1, "title1"),
+            ImageItem(R.drawable.img2, "title2"),
+            ImageItem(R.drawable.img3, "title3"),
+            ImageItem(R.drawable.img4, "title4"),
+            ImageItem(R.drawable.img5, "title5"),
+            ImageItem(R.drawable.placeholder_gallery_image, "title6"),
         )
         //val dataSet = arrayOf("Image 1", "Image 2", "Image 3", "Image 4", "Image 5") // Example data
 
@@ -71,7 +58,7 @@ class GalleryFragment : Fragment() {
 
         // Set the RecyclerView's layout manager and adapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = GalleryAdapter(dataSet)
+        recyclerView.adapter = GalleryAdapter(dataSet, parentFragmentManager)
         recyclerView.addItemDecoration(GridSpacingItemDecoration(spanCount = 2, spacing = spacing))
 
         return root

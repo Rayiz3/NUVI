@@ -4,10 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.ImageView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
-class GalleryAdapter(private val dataSet: Array<Int>) :
+class GalleryAdapter(private val dataSet: Array<ImageItem>, private val fragmentManager: FragmentManager) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -39,8 +40,14 @@ class GalleryAdapter(private val dataSet: Array<Int>) :
     // Get element from the dataset at the position and
     // replace the contents of the view with that element
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.imageView.setImageResource(dataSet[position])
+        val item = dataSet[position]
+        viewHolder.imageView.setImageResource(item.imageResId)
         //viewHolder.textView.text = dataSet[position]
+
+        // Show dialog on click
+        viewHolder.imageView.setOnClickListener {
+            DialogFragment(item.imageResId, item.title).show(fragmentManager, "CustomDialog")
+        }
     }
 
     // 3. getItemCount()

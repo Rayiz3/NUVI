@@ -7,6 +7,10 @@
     <dimen name="margin_side">34dp</dimen>
     <dimen name="margin_gallery_image">24dp</dimen>
     <dimen name="margin_imageGrid_bottom">120dp</dimen>
+    <dimen name="margin_gallery_popup_image">22dp</dimen>
+    <dimen name="margin_gallery_popup_title">32dp</dimen>
+    <dimen name="margin_gallery_popup_address">4dp</dimen>
+    <dimen name="margin_gallery_popup_description">24dp</dimen>
     <dimen name="margin_main_bottom">28dp</dimen>
     <dimen name="margin_title_top">20dp</dimen>
     <dimen name="margin_title_bottom">4dp</dimen>
@@ -16,4 +20,9 @@
     <dimen name="size_main">28sp</dimen>
     <dimen name="size_title">32sp</dimen>
     <dimen name="size_subtitle">14sp</dimen>
+    <dimen name="size_gallery_popup_title">24sp</dimen>
+    <dimen name="size_gallery_popup_address">12sp</dimen>
+    <dimen name="size_gallery_popup_description">16sp</dimen>
+
+    <dimen name="radius_popup">10dp</dimen>
 </resources>
