@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.calendar
 
+import Date
+import SharedViewModel
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCalendarBinding
@@ -17,6 +20,8 @@ class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,8 +55,7 @@ class CalendarFragment : Fragment() {
             val startDatePicker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    val startDate = "${year%100}.${month + 1}.${dayOfMonth}."
-                    startDateButton.text = startDate
+                    sharedViewModel.setStartDate(Date(year, month, dayOfMonth))
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -65,14 +69,22 @@ class CalendarFragment : Fragment() {
             val endDatePicker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    val endDate = "${year%100}.${month + 1}.${dayOfMonth}."
-                    endDateButton.text = endDate
+                    sharedViewModel.setEndDate(Date(year, month, dayOfMonth))
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
             endDatePicker.show()
+        }
+
+        // observing dates
+        sharedViewModel.startDate.observe(viewLifecycleOwner) { date ->
+            startDateButton.text = getString(R.string.date_calendar, date.year%100, date.month + 1, date.day)
+        }
+
+        sharedViewModel.endDate.observe(viewLifecycleOwner) { date ->
+            endDateButton.text = getString(R.string.date_calendar, date.year%100, date.month + 1, date.day)
         }
     }
 
