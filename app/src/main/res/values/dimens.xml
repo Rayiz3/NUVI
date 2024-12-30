@@ -5,6 +5,7 @@
     <dimen name="list_item_height">16dp</dimen>
 
     <dimen name="margin_side">34dp</dimen>
+    <dimen name="margin_calendar_dates">8dp</dimen>
     <dimen name="margin_gallery_image">24dp</dimen>
     <dimen name="margin_imageGrid_bottom">120dp</dimen>
     <dimen name="margin_gallery_popup_image">22dp</dimen>
@@ -15,6 +16,9 @@
     <dimen name="margin_title_top">20dp</dimen>
     <dimen name="margin_title_bottom">4dp</dimen>
 
+    <dimen name="size_calendar_dates_height">48dp</dimen>
+    <dimen name="size_calendar_dates_width">112dp</dimen>
+    <dimen name="size_calendar_dates">16sp</dimen>
     <dimen name="size_image">160dp</dimen>
     <dimen name="size_bottomNav_height">48dp</dimen>
     <dimen name="size_main">28sp</dimen>

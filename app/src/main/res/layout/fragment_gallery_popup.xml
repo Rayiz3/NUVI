@@ -58,7 +58,7 @@
             android:layout_marginTop="@dimen/margin_gallery_popup_address"
             android:textSize="@dimen/size_gallery_popup_address"
             android:background="@null"
-            android:textColor="@color/subDark"
+            android:textColor="@color/sub"
             android:textStyle="normal"
             android:gravity="center"
             android:text="@string/placeholder_gallery_popup_address"
