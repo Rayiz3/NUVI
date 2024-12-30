@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.gallery
 
 import AppDatabase
-import ImageItem
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import com.example.myapplication.databinding.FragmentGalleryBinding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.data.ImageItem
 
 class GalleryFragment : Fragment() {
 
@@ -37,15 +37,14 @@ class GalleryFragment : Fragment() {
         // Initialize RecyclerView
         val recyclerView: RecyclerView = binding.recyclerView
         val spacing = resources.getDimensionPixelSize(R.dimen.margin_gallery_image)
-        val dataSet = arrayOf(
+        var dataSet = listOf(
             ImageItem(0,R.drawable.img1, "title1", "address", "description"),
             ImageItem(0,R.drawable.img2, "title2", "address", "description"),
             ImageItem(0,R.drawable.img3, "title3", "address", "description"),
             ImageItem(0,R.drawable.img4, "title4", "address", "description"),
             ImageItem(0,R.drawable.img5, "title5", "address", "description"),
         )
-        //val dataSet = arrayOf("Image 1", "Image 2", "Image 3", "Image 4", "Image 5") // Example data
-
+        // Set the title
         textTitleView.text = getString(R.string.title_gallery)
         textSubtitleView.text = getString(R.string.subtitle_gallery)
 

@@ -6,12 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.R
 
-class DialogFragment(private val imageResId: Int, private val title: String) : DialogFragment() {
+class DialogFragment(
+    private val imageResId: Int,
+    private var title: String,
+    private var address: String,
+    private var description: String,
+    private val onSave: (String, String, String) -> Unit
+) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,10 +34,23 @@ class DialogFragment(private val imageResId: Int, private val title: String) : D
 
         // Set the image and title
         val imageView: ImageView = view.findViewById(R.id.dialogImage)
-        val titleView: TextView = view.findViewById(R.id.dialogTitle)
+        val titleView: EditText = view.findViewById(R.id.dialogTitle)
+        val addressView: EditText = view.findViewById(R.id.dialogAddress)
+        val descriptionView: EditText = view.findViewById(R.id.dialogDescription)
 
         imageView.setImageResource(imageResId)
-        titleView.text = title
+        titleView.setText(title)
+        addressView.setText(address)
+        descriptionView.setText(description)
+
+        // dialog closing listener
+        dialog?.setOnDismissListener {
+            onSave(
+                titleView.text.toString(),
+                addressView.text.toString(),
+                descriptionView.text.toString()
+            )
+        }
     }
 
     override fun onStart() {

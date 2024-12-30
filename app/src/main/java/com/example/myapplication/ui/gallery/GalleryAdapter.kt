@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.gallery
 
-import ImageItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -8,18 +7,17 @@ import android.widget.ImageView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.data.ImageItem
 
-class GalleryAdapter(private val dataSet: Array<ImageItem>, private val fragmentManager: FragmentManager) :
+class GalleryAdapter(private var dataSet: List<ImageItem>, private val fragmentManager: FragmentManager) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView
-        //val textView: TextView
 
         init {
             // Define click listener for the ViewHolder's View
             imageView = view.findViewById(R.id.imageView)
-            //textView = view.findViewById(R.id.textView)
         }
     }
 
@@ -43,11 +41,26 @@ class GalleryAdapter(private val dataSet: Array<ImageItem>, private val fragment
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = dataSet[position]
         viewHolder.imageView.setImageResource(item.imageResId)
-        //viewHolder.textView.text = dataSet[position]
 
         // Show dialog on click
         viewHolder.imageView.setOnClickListener {
-            DialogFragment(item.imageResId, item.title).show(fragmentManager, "CustomDialog")
+            DialogFragment(
+                item.imageResId,
+                item.title,
+                item.address,
+                item.description
+            ) { updatedTitle, updatedAddress, updatedDescription ->
+                // Save the updated values back to the dataset
+                dataSet = dataSet.toMutableList().apply {
+                    this[position] = item.copy(
+                        title = updatedTitle,
+                        address = updatedAddress,
+                        description = updatedDescription
+                    )
+                }
+                // Notify adapter to refresh the view
+                notifyItemChanged(position)
+            }.show(fragmentManager, "CustomDialog")
         }
     }
 
