@@ -4,77 +4,51 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentContactBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.io.IOException
 
 class ContactFragment : Fragment() {
-//    private var binding: FragmentContactBinding by lazy {
-//        FragmentContactBinding.inflate(layoutInflater)
-//    }
 
-    private var _binding: FragmentContactBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentContactBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentContactBinding.inflate(inflater, container, false)
+        binding = FragmentContactBinding.inflate(inflater, container, false)
+
+        setUpFirstRecyclerView()
+        setUpSecondRecyclerView()
+
         return binding.root
     }
-//        val contactViewModel =
-//            ViewModelProvider(this).get(ContactViewModel::class.java)
-//
-//        _binding = FragmentContactBinding.inflate(inflater, container, false)
-//        val root: View = binding.root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val testdata = getJsonData("Contact.json")
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = ContactAdapter(testdata!!)
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        }
-//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        val contactList = loadContacts()
-//        val adapter = ContactAdapter(contactList)
-//        binding.recyclerView.adapter = adapter
+    private fun setUpFirstRecyclerView() {
+        val firstData = parseJsonData<ContactFirstItem>("ContactFirst.json")
+        binding.firstRecyclerView.adapter = ContactFirstAdapter(requireContext(), firstData ?: emptyList())
+        binding.firstRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    //        val textView: TextView = binding.textContact
-//        contactViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-//        return root
-//    }
-    private fun getJsonData(fileName: String): List<Contact>? {
-        val assetManager = resources.assets
-        var result: Contact? = null
+    private fun setUpSecondRecyclerView() {
+        val secondData = parseJsonData<ContactSecondItem>("ContactSecond.json")
+        binding.secondRecyclerView.adapter = ContactSecondAdapter(requireContext(), secondData ?: emptyList())
+        binding.secondRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private inline fun <reified T> parseJsonData(fileName: String): List<T>? {
         return try {
-            val inputStream = assetManager.open(fileName)
-            val reader = inputStream.bufferedReader()
+            val inputStream = requireContext().assets.open(fileName)
+            val jsonString = inputStream.bufferedReader().use { it.readText() }
             val gson = Gson()
-            val listType = object : TypeToken<List<Contact>>() {}.type
-            gson.fromJson(reader, listType)
-        } catch (e:IOException) {
+            val type = object : TypeToken<List<T>>() {}.type
+            gson.fromJson<List<T>>(jsonString, type)
+        } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
-//    }
 }
