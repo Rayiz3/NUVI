@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="title_contact">Contact</string>
-    <string name="title_calender">Calendar</string>
+    <string name="subtitle_contact">길 위의 전화번호부</string>
+
+    <string name="title_calendar">Calendar</string>
+    <string name="subtitle_calendar">우리의 여정</string>
+
     <string name="title_gallery">Gallery</string>
+    <string name="subtitle_gallery">우리가 함께할 곳</string>
+
     <string name="element_text">grid test</string>
     <string name="main_gallery">%d개의 사진</string>
+    <string name="gallery_dialog">dialog image</string>
+    <string name="placeholder_gallery_popup_title">새로운 장소</string>
+    <string name="placeholder_gallery_popup_address">새로운 주소</string>
+    <string name="placeholder_gallery_popup_description">여기는 어떤 곳 인가요?</string>
 </resources>

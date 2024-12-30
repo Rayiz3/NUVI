@@ -8,38 +8,66 @@
     tools:context=".ui.gallery.GalleryFragment">
 
     <TextView
-        android:id="@+id/text_gallery"
+        android:id="@+id/gallery_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_title_top"
+        android:layout_marginBottom="@dimen/margin_title_bottom"
+        android:textSize="@dimen/size_title"
+        android:textColor="@color/main"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/gallery_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_subtitle"
+        android:textColor="@color/main"
+        android:textStyle="normal"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_title" />
+
+    <TextView
+        android:id="@+id/text_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:paddingBottom="@dimen/margin_title_bottom"
+        android:paddingBottom="@dimen/margin_main_bottom"
         android:textAlignment="center"
-        android:textSize="@dimen/size_title"
+        android:textSize="@dimen/size_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/gallery_subtitle"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin_imageGrid"
-        android:layout_marginRight="@dimen/margin_imageGrid"
+        android:layout_marginLeft="@dimen/margin_side"
+        android:layout_marginRight="@dimen/margin_side"
+        android:paddingBottom="@dimen/size_bottomNav_height"
         app:layout_constraintHeight_percent="0.9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_gallery">
+        app:layout_constraintTop_toBottomOf="@+id/text_main">
 
         <!-- RecyclerView for displaying the grid -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
+            android:paddingBottom="@dimen/margin_imageGrid_bottom"
+            android:scrollbars="none"
             android:scrollbarStyle="outsideOverlay"/>
     </LinearLayout>
 
