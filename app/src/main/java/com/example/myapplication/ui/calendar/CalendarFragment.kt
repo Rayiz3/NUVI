@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -112,10 +113,11 @@ class CalendarFragment : Fragment() {
 
         // observing dates difference
         sharedViewModel.dateDifference.observe(viewLifecycleOwner) { difference ->
-            Log.v("difference", difference.toString())
+            val cardViewDescription = view.findViewById<CardView>(R.id.calendar_description)
             if (difference != null) {
                 val startDate = sharedViewModel.startDate.value
-                if (startDate != null) {
+                val endDate = sharedViewModel.endDate.value
+                if (startDate != null && endDate != null) {
                     val dayList = if (difference >= 0) (0..difference.toInt()).map { offset ->
                         LocalDate.of(startDate.year, startDate.month + 1, startDate.day)
                             .plusDays(offset.toLong())
@@ -132,6 +134,10 @@ class CalendarFragment : Fragment() {
                     val combinedList = dayList.zip(weekdayList).map { (day, weekday) -> CalendarSingleDay(day, weekday) }
                     calendarAdapter = CalendarAdapter(combinedList)
                     recyclerView.adapter = calendarAdapter
+
+                    cardViewDescription.visibility = View.VISIBLE
+                } else {
+                    cardViewDescription.visibility = View.GONE
                 }
             }
         }
