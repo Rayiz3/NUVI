@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.data.ImageItem
 
-class GalleryAdapter(private var dataSet: List<ImageItem>, private val fragmentManager: FragmentManager) :
-    RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
+class GalleryAdapter(
+    private var dataSet: List<ImageItem>,
+    private val fragmentManager: FragmentManager
+): RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView
