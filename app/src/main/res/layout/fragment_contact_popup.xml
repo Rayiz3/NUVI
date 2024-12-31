@@ -1,0 +1,85 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/radius_popup">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:paddingTop="15dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/main_bold"
+            android:gravity="center"
+            android:text="연락처 추가"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogTitle">
+
+            <EditText
+                android:id="@+id/dialogName"
+                android:layout_width="250dp"
+                android:layout_height="57dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="22dp"
+                android:autofillHints="name"
+                android:background="@drawable/rounded_background"
+                android:gravity="left|center"
+                android:hint="이름"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/dialogPhone"
+                android:layout_width="250dp"
+                android:layout_height="57dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginBottom="22dp"
+                android:autofillHints="phone"
+                android:background="@drawable/rounded_background"
+                android:gravity="left|center"
+                android:hint="전화번호"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/dialogName" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/complete_btn"
+                android:contentDescription="연락처를 추가하는 버튼"
+                android:text="추가하기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dialogPhone" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
