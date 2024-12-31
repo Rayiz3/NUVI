@@ -11,7 +11,7 @@
     <color name="transparent">#00000000</color>
     <color name="main">#FF4690FF</color>
     <color name="main_bold">#FF1B66F6</color>
-    <color name="sub">#FFE5E5E5</color>
-    <color name="subDark">#FFB9B9B9</color>
+    <color name="sub">#FFB9B9B9</color>
+    <color name="subDark">#FF7A7A7A</color>
     <color name="gray">#E5E5E5</color>
 </resources>
