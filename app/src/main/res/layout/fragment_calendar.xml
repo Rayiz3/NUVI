@@ -176,4 +176,19 @@
         </EditText>
     </androidx.cardview.widget.CardView>
 
+
+    <TextView
+        android:id="@+id/label_calendar_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/subDark"
+        android:textSize="@dimen/size_subtitle"
+        android:textStyle="normal"
+        android:visibility="visible"
+        android:text="@string/placeholder_calendar"
+        app:layout_constraintTop_toBottomOf="@id/layout_dates"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

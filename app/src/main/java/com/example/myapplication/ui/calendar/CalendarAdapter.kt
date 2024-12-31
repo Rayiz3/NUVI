@@ -19,7 +19,7 @@ class CalendarAdapter(
     private var dataSet: List<CalendarSingleDay>,
 ): RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
-    private var idxDateFocused: Int = -1
+    private var idxDateFocused: Int = 0
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dayView: TextView

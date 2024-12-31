@@ -114,6 +114,7 @@ class CalendarFragment : Fragment() {
         // observing dates difference
         sharedViewModel.dateDifference.observe(viewLifecycleOwner) { difference ->
             val cardViewDescription = view.findViewById<CardView>(R.id.calendar_description)
+            val textViewPlaceholder = view.findViewById<TextView>(R.id.label_calendar_placeholder)
             if (difference != null) {
                 val startDate = sharedViewModel.startDate.value
                 val endDate = sharedViewModel.endDate.value
@@ -136,8 +137,10 @@ class CalendarFragment : Fragment() {
                     recyclerView.adapter = calendarAdapter
 
                     cardViewDescription.visibility = View.VISIBLE
+                    textViewPlaceholder.visibility = View.GONE
                 } else {
                     cardViewDescription.visibility = View.GONE
+                    textViewPlaceholder.visibility = View.VISIBLE
                 }
             }
         }
