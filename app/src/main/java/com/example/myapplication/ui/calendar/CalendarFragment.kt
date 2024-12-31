@@ -89,7 +89,7 @@ class CalendarFragment : Fragment() {
             val startDatePicker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    val weekOfDay = LocalDate.of(year, month, dayOfMonth).dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                    val weekOfDay = LocalDate.of(year, month+1, dayOfMonth).dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
                     sharedViewModel.setStartDate(Date(year, month, dayOfMonth, weekOfDay))
                 },
                 calendar.get(Calendar.YEAR),
@@ -104,7 +104,7 @@ class CalendarFragment : Fragment() {
             val endDatePicker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    val weekOfDay = LocalDate.of(year, month, dayOfMonth).dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                    val weekOfDay = LocalDate.of(year, month+1, dayOfMonth).dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
                     sharedViewModel.setEndDate(Date(year, month, dayOfMonth, weekOfDay))
                 },
                 calendar.get(Calendar.YEAR),
