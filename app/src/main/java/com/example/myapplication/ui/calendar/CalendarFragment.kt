@@ -3,6 +3,7 @@ package com.example.myapplication.ui.calendar
 import Date
 import SharedViewModel
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +26,11 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCalendarBinding
 import com.example.myapplication.ui.contact.CalendarAdapter
 import com.example.myapplication.ui.contact.CalendarSingleDay
+import com.example.myapplication.ui.contact.ContactFirstItem
 import com.example.myapplication.ui.gallery.GalleryAdapter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.File
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Calendar
@@ -38,6 +45,9 @@ class CalendarFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var calendarAdapter: CalendarAdapter
+
+    private lateinit var editText: EditText
+    private var selectedDay: CalendarSingleDay? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +76,8 @@ class CalendarFragment : Fragment() {
         val endDateButton: Button = view.findViewById(R.id.endDate)
         val calendar = Calendar.getInstance()
 
+        editText = view.findViewById(R.id.calendar_description_text)
+
         // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recyclerView_calendar)
 
@@ -77,7 +89,8 @@ class CalendarFragment : Fragment() {
             val startDatePicker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    sharedViewModel.setStartDate(Date(year, month, dayOfMonth))
+                    val weekOfDay = LocalDate.of(year, month, dayOfMonth).dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                    sharedViewModel.setStartDate(Date(year, month, dayOfMonth, weekOfDay))
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -91,7 +104,8 @@ class CalendarFragment : Fragment() {
             val endDatePicker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    sharedViewModel.setEndDate(Date(year, month, dayOfMonth))
+                    val weekOfDay = LocalDate.of(year, month, dayOfMonth).dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                    sharedViewModel.setEndDate(Date(year, month, dayOfMonth, weekOfDay))
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -102,12 +116,11 @@ class CalendarFragment : Fragment() {
 
         // observing dates
         sharedViewModel.startDate.observe(viewLifecycleOwner) { date ->
-            Log.v("start date", date.toString())
             startDateButton.text = getString(R.string.date_calendar, date.year%100, date.month + 1, date.day)
+            selectedDay = CalendarSingleDay(date.month+1, date.day, date.weekOfDay, "")
         }
 
         sharedViewModel.endDate.observe(viewLifecycleOwner) { date ->
-            Log.v("end date", date.toString())
             endDateButton.text = getString(R.string.date_calendar, date.year%100, date.month + 1, date.day)
         }
 
@@ -119,21 +132,19 @@ class CalendarFragment : Fragment() {
                 val startDate = sharedViewModel.startDate.value
                 val endDate = sharedViewModel.endDate.value
                 if (startDate != null && endDate != null) {
-                    val dayList = if (difference >= 0) (0..difference.toInt()).map { offset ->
-                        LocalDate.of(startDate.year, startDate.month + 1, startDate.day)
-                            .plusDays(offset.toLong())
-                            .dayOfMonth
+                    val combinedList = if (difference >= 0) {
+                        (0..difference.toInt()).map { offset ->
+                            val date = LocalDate.of(startDate.year, startDate.month + 1, startDate.day)
+                                .plusDays(offset.toLong())
+                            CalendarSingleDay(
+                                day = date.dayOfMonth,
+                                weekOfDay = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN),
+                                month = date.monthValue
+                            )
+                        }
                     } else listOf()
 
-                    val weekdayList = if (difference >= 0) (0..difference.toInt()).map { offset ->
-                        LocalDate.of(startDate.year, startDate.month + 1, startDate.day)
-                            .plusDays(offset.toLong())
-                            .dayOfWeek
-                            .getDisplayName(TextStyle.SHORT, Locale.KOREAN)
-                    } else listOf()
-
-                    val combinedList = dayList.zip(weekdayList).map { (day, weekday) -> CalendarSingleDay(day, weekday) }
-                    calendarAdapter = CalendarAdapter(combinedList)
+                    calendarAdapter = CalendarAdapter(combinedList, sharedViewModel)
                     recyclerView.adapter = calendarAdapter
 
                     cardViewDescription.visibility = View.VISIBLE
@@ -142,6 +153,21 @@ class CalendarFragment : Fragment() {
                     cardViewDescription.visibility = View.GONE
                     textViewPlaceholder.visibility = View.VISIBLE
                 }
+            }
+        }
+        sharedViewModel.dateFocused.observe(viewLifecycleOwner) { date ->
+            date?.let {
+                val previousDate = selectedDay
+                if (previousDate != null) {
+                    Log.v("date focused", date.month.toString()+'.'+date.day.toString())
+                    Log.v("previous text", editText.text.toString())
+                    sharedViewModel.updateCalendarDescription(previousDate.month, previousDate.day, editText.text.toString())
+                }
+
+                editText.setText(date.description)
+                editText.setSelection(editText.length())
+
+                selectedDay = CalendarSingleDay(date.month, date.day, date.weekOfDay, date.description)
             }
         }
     }
