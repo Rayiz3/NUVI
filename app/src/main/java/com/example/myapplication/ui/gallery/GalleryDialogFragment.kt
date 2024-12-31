@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.gallery
 
+import SharedViewModel
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -13,10 +14,12 @@ import androidx.fragment.app.DialogFragment
 import com.example.myapplication.R
 
 class DialogFragment(
+    private val position: Int,
     private val imageResId: Int,
     private var title: String,
     private var address: String,
     private var description: String,
+    private val sharedViewModel: SharedViewModel,
     private val onSave: (String, String, String) -> Unit
 ) : DialogFragment() {
 
@@ -45,10 +48,14 @@ class DialogFragment(
 
         // dialog closing listener
         dialog?.setOnDismissListener {
-            onSave(
-                titleView.text.toString(),
-                addressView.text.toString(),
-                descriptionView.text.toString()
+            sharedViewModel.updateGalleryDescription(
+                position,
+                ImageItem(
+                    imageResId = imageResId,
+                    title = titleView.text.toString(),
+                    address = addressView.text.toString(),
+                    description = descriptionView.text.toString()
+                )
             )
         }
     }

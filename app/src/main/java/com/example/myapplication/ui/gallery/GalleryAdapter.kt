@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.gallery
 
+import SharedViewModel
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -7,20 +8,22 @@ import android.widget.ImageView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.data.ImageItem
+
+data class ImageItem(
+    val imageResId: Int,
+    val title: String,
+    val address: String,
+    val description: String
+)
 
 class GalleryAdapter(
     private var dataSet: List<ImageItem>,
-    private val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager,
+    private val sharedViewModel: SharedViewModel
 ): RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView
-
-        init {
-            // Define click listener for the ViewHolder's View
-            imageView = view.findViewById(R.id.imageView)
-        }
+        val imageView: ImageView = view.findViewById(R.id.imageView)
     }
 
     /* overrided methods (invoked by the layout manager) */
@@ -47,21 +50,20 @@ class GalleryAdapter(
         // Show dialog on click
         viewHolder.imageView.setOnClickListener {
             DialogFragment(
+                position,
                 item.imageResId,
                 item.title,
                 item.address,
-                item.description
+                item.description,
+                sharedViewModel,
             ) { updatedTitle, updatedAddress, updatedDescription ->
-                // Save the updated values back to the dataset
-                dataSet = dataSet.toMutableList().apply {
-                    this[position] = item.copy(
-                        title = updatedTitle,
-                        address = updatedAddress,
-                        description = updatedDescription
-                    )
-                }
-                // Notify adapter to refresh the view
-                notifyItemChanged(position)
+                // Update the data in SharedViewModel
+                val updatedItem = item.copy(
+                    title = updatedTitle,
+                    address = updatedAddress,
+                    description = updatedDescription
+                )
+                sharedViewModel.updateGalleryDescription(item.imageResId, updatedItem)
             }.show(fragmentManager, "CustomDialog")
         }
     }

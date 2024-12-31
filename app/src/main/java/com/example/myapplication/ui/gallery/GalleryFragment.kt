@@ -1,31 +1,33 @@
 package com.example.myapplication.ui.gallery
 
-import AppDatabase
+import SharedViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentGalleryBinding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.data.ImageItem
 
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sharedViewModel: SharedViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -37,28 +39,36 @@ class GalleryFragment : Fragment() {
         // Initialize RecyclerView
         val recyclerView: RecyclerView = binding.recyclerView
         val spacing = resources.getDimensionPixelSize(R.dimen.margin_gallery_image)
-        var dataSet = listOf(
-            ImageItem(0,R.drawable.img1, "title1", "address", "description"),
-            ImageItem(0,R.drawable.img2, "title2", "address", "description"),
-            ImageItem(0,R.drawable.img3, "title3", "address", "description"),
-            ImageItem(0,R.drawable.img4, "title4", "address", "description"),
-            ImageItem(0,R.drawable.img5, "title5", "address", "description"),
+        val dataSet = listOf(
+            ImageItem(R.drawable.img1, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img2, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img3, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img4, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img5, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img6, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img7, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img8, "새로운 사진", "새로운 주소", ""),
+            ImageItem(R.drawable.img9, "새로운 사진", "새로운 주소", ""),
         )
+
+        // Initialize gallery descriptions in the SharedViewModel
+        sharedViewModel.initializeGalleryDescriptions(dataSet)
+
         // Set the title
         textTitleView.text = getString(R.string.title_gallery)
         textSubtitleView.text = getString(R.string.subtitle_gallery)
 
-        // Set the main text
-        // viewLifecycleOwner : Ensures that observation stops when the Fragment's view is destroyed.
-        // it : latest value of LiveData.text
-        galleryViewModel.text_main.observe(viewLifecycleOwner) {
-            textViewMain.text = getString(R.string.main_gallery, dataSet.size)
-        }
-
         // Set the RecyclerView's layout manager and adapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = GalleryAdapter(dataSet, parentFragmentManager)
+        recyclerView.adapter = GalleryAdapter(dataSet, parentFragmentManager, sharedViewModel)
         recyclerView.addItemDecoration(GridSpacingItemDecoration(spanCount = 2, spacing = spacing))
+
+        sharedViewModel.galleryDescriptions.observe(viewLifecycleOwner) { descriptions ->
+            val updatedDataSet = descriptions.values.toList()
+            // Set the main text
+            textViewMain.text = getString(R.string.main_gallery, updatedDataSet.size)
+            recyclerView.adapter = GalleryAdapter(updatedDataSet, parentFragmentManager, sharedViewModel)
+        }
 
         return root
     }

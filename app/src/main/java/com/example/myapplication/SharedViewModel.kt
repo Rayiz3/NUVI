@@ -1,10 +1,10 @@
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.ui.contact.CalendarSingleDay
+import com.example.myapplication.ui.gallery.ImageItem
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -27,6 +27,7 @@ class SharedViewModel : ViewModel() {
     private val _dateDifference = MutableLiveData<Long>()
     private val _dateFocused = MutableLiveData<CalendarSingleDay>()
     private val _calendarDescriptions = MutableLiveData<MutableMap<String, String>>(mutableMapOf())
+    private val _galleryDescriptions = MutableLiveData<MutableMap<Int, ImageItem>>(mutableMapOf())
 
     val startDate: LiveData<Date> get() = _startDate
     val endDate: LiveData<Date> get() = _endDate
@@ -34,6 +35,7 @@ class SharedViewModel : ViewModel() {
     val dateDifference: LiveData<Long> get() = _dateDifference
     val dateFocused: LiveData<CalendarSingleDay> get() = _dateFocused
     val calendarDescriptions: LiveData<MutableMap<String, String>> get() = _calendarDescriptions
+    val galleryDescriptions: LiveData<MutableMap<Int, ImageItem>> get() = _galleryDescriptions
 
     fun setFocusedDate(date: CalendarSingleDay){
         _dateFocused.value = date
@@ -68,7 +70,6 @@ class SharedViewModel : ViewModel() {
     }
 
     fun updateCalendarDescription(month: Int, day: Int, description: String) {
-        Log.v("update", month.toString()+'.'+day.toString())
         _calendarDescriptions.value?.let { currentDescriptions ->
             currentDescriptions[month.toString()+'.'+day.toString()] = description
             _calendarDescriptions.value = currentDescriptions
@@ -76,7 +77,24 @@ class SharedViewModel : ViewModel() {
     }
 
     fun getCalendarDescription(month: Int, day: Int): String {
-        Log.v("get", month.toString()+'.'+day.toString())
         return _calendarDescriptions.value?.get(month.toString()+'.'+day.toString())?: ""
+    }
+
+    fun updateGalleryDescription(idx: Int, image: ImageItem) {
+        _galleryDescriptions.value?.let { currentDescriptions ->
+            currentDescriptions[idx] = image
+            _galleryDescriptions.value = currentDescriptions
+        }
+    }
+
+    fun getGalleryDescription(idx: Int): ImageItem {
+        return _galleryDescriptions.value?.get(idx)?: ImageItem(0, "", "", "")
+    }
+
+    fun initializeGalleryDescriptions(dataSet: List<ImageItem>) {
+        if (_galleryDescriptions.value.isNullOrEmpty()) {
+            val initialMap = dataSet.mapIndexed { index, image -> index to image }.toMap().toMutableMap()
+            _galleryDescriptions.value = initialMap
+        }
     }
 }
