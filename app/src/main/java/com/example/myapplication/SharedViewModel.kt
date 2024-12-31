@@ -33,7 +33,7 @@ class SharedViewModel : ViewModel() {
     fun setStartDate(date: Date) {
         _startDate.value = date
         val selection = _dateSelection.value?: DateSelection()
-        _dateSelection.value = selection.copy(startDate = LocalDate.of(date.year, date.month, date.day))
+        _dateSelection.value = selection.copy(startDate = LocalDate.of(date.year, date.month+1, date.day))
         computeDateDifference()
     }
 
@@ -41,7 +41,7 @@ class SharedViewModel : ViewModel() {
     fun setEndDate(date: Date) {
         _endDate.value = date
         val selection = _dateSelection.value?: DateSelection()
-        _dateSelection.value = selection.copy(endDate = LocalDate.of(date.year, date.month, date.day))
+        _dateSelection.value = selection.copy(endDate = LocalDate.of(date.year, date.month+1, date.day))
         computeDateDifference()
     }
 
@@ -51,7 +51,7 @@ class SharedViewModel : ViewModel() {
         val endDate = _dateSelection.value?.endDate
 
         _dateDifference.value = if (startDate != null && endDate != null) {
-            ChronoUnit.DAYS.between(startDate, endDate) + 1 // Compute difference in days
+            ChronoUnit.DAYS.between(startDate, endDate) // Compute difference in days
         } else {
             0 // No difference if either date is not set
         }
