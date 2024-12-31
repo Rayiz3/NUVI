@@ -21,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCalendarBinding
 import com.example.myapplication.ui.contact.CalendarAdapter
+import com.example.myapplication.ui.contact.CalendarSingleDay
 import com.example.myapplication.ui.gallery.GalleryAdapter
 import java.time.LocalDate
+import java.time.format.TextStyle
 import java.util.Calendar
+import java.util.Locale
 
 class CalendarFragment : Fragment() {
 
@@ -113,12 +116,21 @@ class CalendarFragment : Fragment() {
             if (difference != null) {
                 val startDate = sharedViewModel.startDate.value
                 if (startDate != null) {
-                    val dayList = if (difference > 0) (0..difference.toInt()).map { offset ->
+                    val dayList = if (difference >= 0) (0..difference.toInt()).map { offset ->
                         LocalDate.of(startDate.year, startDate.month + 1, startDate.day)
                             .plusDays(offset.toLong())
                             .dayOfMonth
                     } else listOf()
-                    calendarAdapter = CalendarAdapter(dayList)
+
+                    val weekdayList = if (difference >= 0) (0..difference.toInt()).map { offset ->
+                        LocalDate.of(startDate.year, startDate.month + 1, startDate.day)
+                            .plusDays(offset.toLong())
+                            .dayOfWeek
+                            .getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                    } else listOf()
+
+                    val combinedList = dayList.zip(weekdayList).map { (day, weekday) -> CalendarSingleDay(day, weekday) }
+                    calendarAdapter = CalendarAdapter(combinedList)
                     recyclerView.adapter = calendarAdapter
                 }
             }

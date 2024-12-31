@@ -23,11 +23,13 @@ class SharedViewModel : ViewModel() {
     private val _endDate = MutableLiveData<Date>()
     private val _dateSelection = MutableLiveData<DateSelection>()
     private val _dateDifference = MutableLiveData<Long>()
+    private val _dateFocused = MutableLiveData<Date>()
 
     val startDate: LiveData<Date> get() = _startDate
     val endDate: LiveData<Date> get() = _endDate
     val dateSelection: LiveData<DateSelection> get() = _dateSelection
     val dateDifference: LiveData<Long> get() = _dateDifference
+    val dateFocused: LiveData<Date> get() = _dateFocused
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setStartDate(date: Date) {
@@ -43,6 +45,10 @@ class SharedViewModel : ViewModel() {
         val selection = _dateSelection.value?: DateSelection()
         _dateSelection.value = selection.copy(endDate = LocalDate.of(date.year, date.month+1, date.day))
         computeDateDifference()
+    }
+
+    fun setFocusedDate(date: Date) {
+        _dateFocused.value = date
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
