@@ -52,10 +52,12 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.recyclerview)
     implementation(libs.gson)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler) // For annotation processing
     implementation(libs.androidx.room.ktx) // For Kotlin coroutine support
+    implementation(libs.androidx.core.splashscreen)
 }
