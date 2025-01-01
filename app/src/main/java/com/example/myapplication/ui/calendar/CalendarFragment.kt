@@ -3,6 +3,7 @@ package com.example.myapplication.ui.calendar
 import Date
 import SharedViewModel
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,8 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentCalendarBinding
 import com.example.myapplication.ui.contact.CalendarAdapter
 import com.example.myapplication.ui.contact.CalendarSingleDay
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Calendar

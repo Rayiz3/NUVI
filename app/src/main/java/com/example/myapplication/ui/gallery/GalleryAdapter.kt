@@ -49,6 +49,12 @@ class GalleryAdapter(
 
         // Show dialog on click
         viewHolder.imageView.setOnClickListener {
+            // not to store the fragment stack even go out
+            val existingDialog = fragmentManager.findFragmentByTag("CustomDialog")
+            if (existingDialog is DialogFragment) {
+                existingDialog.dismissAllowingStateLoss()
+            }
+
             DialogFragment(
                 position,
                 item.imageResId,

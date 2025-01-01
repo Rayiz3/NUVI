@@ -76,5 +76,11 @@ class GalleryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        // Remove any lingering dialogs when leaving GalleryFragment
+        val existingDialog = parentFragmentManager.findFragmentByTag("CustomDialog")
+        if (existingDialog is DialogFragment) {
+            existingDialog.dismissAllowingStateLoss()
+        }
     }
 }
