@@ -7,7 +7,8 @@
     <string name="subtitle_calendar">우리의 여정</string>
     <string name="main_calendar">여행 이름</string>
     <string name="date_calendar">%d.%d.%d.</string>
-    <string name="placeholder_calendar">여행을 떠날 날짜를 정해주세요!</string>
+    <string name="placeholder_calendar">여행을 떠날 날짜를 정해 주세요!</string>
+    <string name="description_logo">app logo</string>
 
     <string name="title_gallery">Gallery</string>
     <string name="subtitle_gallery">우리가 함께할 곳</string>
