@@ -13,11 +13,8 @@ NUVI와 함께 전 세계를 누벼보세요!
   * KAIST 전산학부 19학번
 
 # 개발 스택
-* 언어 : **Kotlin**
-* IDE : **AndroidStudio**
-* 디자인 : **Figma**
-* 버전 및 이슈관리 : **Github**
-* 협업 툴 : **Github**
+
+<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white"> <img src="https://img.shields.io/badge/Android-34A853?style=for-the-badge&logo=Android&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"> <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white">
 
 # 기능들
 
