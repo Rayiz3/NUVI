@@ -44,3 +44,5 @@
 
 <img src="https://github.com/user-attachments/assets/a958c9a5-951c-43f0-944c-07aa50e755a4" width="300" height="700" align="center"/>
 
+## 배포 파일
+https://drive.google.com/file/d/1tWsAO-DoPXbd11oT_r0u0clXn_WEFoKO/view?usp=drive_link
